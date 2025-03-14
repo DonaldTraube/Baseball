@@ -1,0 +1,30 @@
+#Jupyter
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+import seaborn as sns
+sns.set
+
+teams = pd.read_csv("/Users/donaldtraube/PycharmProjects/P20241231 Full Year 2024.csv")
+
+sns.lmplot(x="WHIP", y="R", data=teams, fit_reg=True, ci=None)
+sns.lmplot(x="WAR", y="R", data=teams, fit_reg=True, ci=None)
+
+teams.plot.hist(y="R")
+
+y = teams ['R']
+X = teams ['WHIP']
+plt.scatter(X,y)
+plt.xlabel('WHIP', fontsize = 20)
+plt.ylabel('R', fontsize = 20)
+plt.show()
+X1 = sm.add_constant(X)
+results = sm.OLS(y,X1).fit()
+results.summary()
+plt.scatter(X,y)
+yhat = 808.7734*X1 + -315.9784
+fig = plt.plot(X1,yhat, lw=2, c='orange', label='regression line')
+plt.xlabel('OPS',fontsize = 20)
+plt.ylabel('R',fontsize = 20)
+plt.show()
